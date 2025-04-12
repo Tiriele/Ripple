@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <title>Topics</title>
+</head>
+<body>
+    <h1>List of topics</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Topics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each = "topic : ${topics}">
+                <td th:text="${topic.name}"></td>
+                <td><a th:href="@{/deletetopic/{id}(id=${topic.topicid})}" class="btn btn-danger">Delete</a></td>
+                <td><a th:href="@{/edittopic/{id}(id=${topic.topicid})}" class="btn btn-warning">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/addtopic" class="btn btn-success">Add a topic</a>
+    <a href="/homepage" class="btn btn-primary">Check posts</a>
+</body>
+</html>

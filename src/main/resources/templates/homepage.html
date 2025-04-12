@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <title>Homepage</title>
+</head>
+<body>
+    <h1>Homepage</h1>
+    <h3>Welcome, <span sec:authentication="name"></span>!</h3>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign out" class="btn btn-danger">
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Post</th>
+                <th>Started by</th>
+                <th>Creation date</th>
+                <th>Last commented</th>
+                <th>Comments</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Topic</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each = "post : ${posts}">
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.creator}"></td>
+                <td th:text="${post.creationDate}"></td>
+                <td th:text="${post.lastCommentedDate}"></td>
+                <td th:text="${post.comments}"></td>
+                <td th:text="${post.likes}"></td>
+                <td th:text="${post.dislikes}"></td>
+                <td th:text="${post.topic.name}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${post.postId})}" class="btn btn-danger">Delete</a></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${post.postId})}" class="btn btn-warning">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/add" class="btn btn-success">Create a post</a>
+    <a href="/topiclist" class="btn btn-primary">Check other topics</a>
+</body>
+</html>
