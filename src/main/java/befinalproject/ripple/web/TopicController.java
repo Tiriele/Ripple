@@ -29,10 +29,10 @@ public class TopicController {
         return "redirect:/topiclist";
     }
 
-    @GetMapping("/createTopic")
+    @GetMapping("/createtopic")
     public String addTopic(Model model) {
         model.addAttribute("topic", new Topic());
-        return "createTopic";
+        return "createtopic";
     }
 
     @PostMapping("/savetopic")

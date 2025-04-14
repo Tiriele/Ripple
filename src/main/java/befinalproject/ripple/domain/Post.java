@@ -11,19 +11,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
+
 @Entity
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long postId;
+
+    @NotEmpty(message = "Title cannot be empty")
+    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
     private String title;
+
     private String creator;
     private LocalDate creationDate;
     private LocalDate lastCommentedDate;
     private int comments;
     private int likes;
     private int dislikes;
+
+    @NotNull(message = "Content cannot be null")
+    @NotEmpty(message = "Content cannot be empty")
     private String content;
 
     @ManyToOne
@@ -46,7 +57,7 @@ public class Post {
     public Post() {
         this.title = null;
         this.creator = null;
-        this.creationDate = null;
+        this.creationDate = LocalDate.now();
         this.lastCommentedDate = null;
         this.comments = 0;
         this.likes = 0;

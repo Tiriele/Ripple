@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <title>Create a new post</title>
 </head>
 <body>
-    
+    <h1>Create a new post</h1>
+    <form action="#" th:action="@{/save}" th:object="${post}" method="post">
+        <div class="form-group" style="max-width: 400px;">
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control" th:classappend="${#fields.hasErrors('title') ? ' is-invalid' : ''}">
+            <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+                <span th:errors="*{title}">Title is required</span>
+            </div>
+        </div>
+
+        <div class="form-group" style="max-width: 400px;">
+            <label for="topic">Topic:</label>
+            <select id="topic" th:field="*{topic}" class="form-select" th:classappend="${#fields.hasErrors('topic') ? ' is-invalid' : ''}">
+                <option value="" disabled selected>Select a topic</option>
+                <option th:each="topic : ${topics}" th:value="${topic.topicid}" th:text="${topic.name}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('topic')}" class="invalid-feedback">
+                <span th:errors="*{topic}">Topic is required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Text:</label><br>
+            <textarea id="content" th:field="*{content}" rows="20" cols="80" class="form-control" th:classappend="${#fields.hasErrors('content') ? ' is-invalid' : ''}"></textarea>
+            <div th:if="${#fields.hasErrors('content')}" class="invalid-feedback">
+                <span th:errors="*{content}">Content is required</span>
+            </div>
+        </div>  
+
+        <div class="form-group mt-3">
+            <input type="submit" value="Create post" class="btn btn-success">
+            <a href="/homepage" class="btn btn-secondary ml-2">Cancel</a>
+        </div>
+    </form>
 </body>
 </html>

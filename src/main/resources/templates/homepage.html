@@ -13,7 +13,7 @@
         <input type="submit" value="Sign out" class="btn btn-danger">
     </form>
     <a href="/create" class="btn btn-success">Create a post</a>
-    <a href="/topiclist" class="btn btn-primary">Check other topics</a>
+    <a href="/topiclist" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">Manage topics</a>
     <table class="table table-striped">
         <thead>
             <tr>
