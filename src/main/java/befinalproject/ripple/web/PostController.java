@@ -69,4 +69,13 @@ public class PostController {
         return "redirect:/homepage";
     }
 
+    @GetMapping("/post/{id}")
+    public String showPost(@PathVariable("id") Long postId, Model model) {
+    Post post = postRepository.findById(postId)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid post Id: " + postId));
+    model.addAttribute("post", post);
+    return "showpost";
+}
+
+
 }

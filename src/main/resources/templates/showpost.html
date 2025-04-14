@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${post.title}">Post</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <a href="/homepage" class="btn btn-primary mb-4">Back to Homepage</a>
+        <div class="card">
+            <div class="card-header">
+                <h2 th:text="${post.title}">Post Title</h2>
+                <h5 class="text-muted" th:text="'By: ' + ${post.creator} + ' on ' + ${#dates.format(post.creationDate, 'dd/MM/yyyy')}">Creator and Date</h5>
+            </div>
+            <div class="card-body">
+                <p th:text="${post.content}">Post content</p>      
+    <div class="card mt-4">
+    <div class="card-header">
+        <h5>Post Info</h5>
+    </div>
+    <div class="card-body">
+        <p class="text-muted" th:text="'Last Commented on: ' + ${#dates.format(post.lastCommentedDate, 'dd/MM/yyyy')}">Last Commented Date</p>
+        <p>Comments: <span th:text="${post.comments}">Number of comments</span></p>
+        <p>Likes: <span th:text="${post.likes}">0</span></p>
+        <p>Dislikes: <span th:text="${post.dislikes}">0</span></p>
+        <p>Topic: <span th:text="${post.topic.name}">Topic Name</span></p>
+    </div>
+</div>
+</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

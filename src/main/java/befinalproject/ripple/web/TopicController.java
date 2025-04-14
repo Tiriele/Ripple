@@ -23,9 +23,9 @@ public class TopicController {
         return "topiclist";
     }
 
-    @GetMapping("/deleteTopic/{id}")
-    public String deleteTopic(@PathVariable("id") Long TopicId, Model model) {
-        topicRepository.deleteById(TopicId);
+    @GetMapping("/deletetopic/{id}")
+    public String deleteTopic(@PathVariable("id") Long topicId, Model model) {
+        topicRepository.deleteById(topicId);
         return "redirect:/topiclist";
     }
 
@@ -35,7 +35,7 @@ public class TopicController {
         return "createTopic";
     }
 
-    @PostMapping("/saveTopic")
+    @PostMapping("/savetopic")
     public String saveTopic(@ModelAttribute Topic topic) {
         topicRepository.save(topic);
         return "redirect:/topiclist";

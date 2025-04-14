@@ -24,13 +24,14 @@ public class Post {
     private int comments;
     private int likes;
     private int dislikes;
+    private String content;
 
     @ManyToOne
     @JsonIgnoreProperties("posts")
     @JoinColumn(name = "topicid")
     private Topic topic;
 
-    public Post(String title, String creator, LocalDate creationDate, LocalDate lastCommentedDate, int comments, int likes, int dislikes, Topic topic) {
+    public Post(String title, String creator, LocalDate creationDate, LocalDate lastCommentedDate, int comments, int likes, int dislikes, Topic topic, String content) {
         this.title = title;
         this.creator = creator;
         this.creationDate = creationDate;
@@ -39,6 +40,7 @@ public class Post {
         this.likes = likes;
         this.dislikes = dislikes;
         this.topic = topic;
+        this.content = content;
     }
 
     public Post() {
@@ -49,6 +51,8 @@ public class Post {
         this.comments = 0;
         this.likes = 0;
         this.dislikes = 0;
+        this.topic = null;
+        this.content = null;
     }
 
     public Long getPostId() {
@@ -123,10 +127,18 @@ public class Post {
         this.topic = topic;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Override
     public String toString() {
         return "Post [postId=" + postId + ", title=" + title + ", creator=" + creator + ", creationDate=" + creationDate
-                + ", lastCommentedDate=" + lastCommentedDate + ", comments=" + comments + ", likes=" + likes + ", dislikes=" + dislikes + "]";
+                + ", lastCommentedDate=" + lastCommentedDate + ", comments=" + comments + ", likes=" + likes + ", dislikes=" + dislikes + ", content=" + content + "]";
     }
 
 }

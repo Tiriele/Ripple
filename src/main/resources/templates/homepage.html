@@ -9,9 +9,11 @@
 <body>
     <h1>Homepage</h1>
     <h3>Welcome, <span sec:authentication="name"></span>!</h3>
-    <form th:action="@{/logout}" method="post">
+    <form th:action="@{/logout}" method="post" style="position: absolute; top: 20px; right: 20px;">
         <input type="submit" value="Sign out" class="btn btn-danger">
     </form>
+    <a href="/create" class="btn btn-success">Create a post</a>
+    <a href="/topiclist" class="btn btn-primary">Check other topics</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,20 +29,20 @@
         </thead>
         <tbody>
             <tr th:each = "post : ${posts}">
-                <td th:text="${post.title}"></td>
+                <td>
+                    <a th:href="@{/post/{id}(id=${post.postId})}" th:text="${post.title}"></a>
+                </td>
                 <td th:text="${post.creator}"></td>
                 <td th:text="${post.creationDate}"></td>
                 <td th:text="${post.lastCommentedDate}"></td>
                 <td th:text="${post.comments}"></td>
                 <td th:text="${post.likes}"></td>
                 <td th:text="${post.dislikes}"></td>
-                <td th:text="${post.topic.name}"></td>
+                <td th:text="${post.topic != null} ? ${post.topic.name} : 'No topic'"></td>
                 <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${post.postId})}" class="btn btn-danger">Delete</a></td>
-                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${post.postId})}" class="btn btn-warning">Edit</a></td>
+                <td sec:authorize="hasAuthority('USER')"><a th:href="@{/edit/{id}(id=${post.postId})}" class="btn btn-warning">Edit</a></td>
             </tr>
         </tbody>
     </table>
-    <a href="/add" class="btn btn-success">Create a post</a>
-    <a href="/topiclist" class="btn btn-primary">Check other topics</a>
 </body>
 </html>
